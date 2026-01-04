@@ -22,10 +22,12 @@ The project consists of three major components:
 
 🔹 **FastAPI – Model Inference API**
 Deployed on Google Cloud Run
+
 **👉 **API URL**:**
 https://ml-inceptez-hackathon-hr-analytics-65827796111.europe-west1.run.app
 
 🔹 **Streamlit – Prediction UI**
 Deployed on Google Cloud Run
+
 **👉 UI URL:**
 https://inceptez-hackathon-hr-analytics-ui-65827796111.europe-west1.run.app

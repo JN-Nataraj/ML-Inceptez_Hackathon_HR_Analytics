@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir -r Requirements.txt
 
 EXPOSE 8080
 
-CMD ["uvicorn", "src.fastapi.app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["sh", "-c", "uvicorn src.fastapi.app.main:app --host 0.0.0.0 --port $PORT"]

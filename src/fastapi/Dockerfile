@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN pip install --no-cache-dir -r src/fastapi/Requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE 8080
 

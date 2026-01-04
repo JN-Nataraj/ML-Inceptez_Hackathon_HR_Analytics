@@ -1,11 +1,13 @@
 import pandas as pd
-import joblib
+import requests
 import streamlit as st
-from featureengineering import FeatureEngineering
+import os
 
 st.title("HR Promotion Predictor")
 
 df = pd.read_csv("Data/train.csv")
+
+API_URL = os.getenv("API_URL", "http://localhost:8080/predict")
 
 employee_id = st.number_input("Employee ID")
 department = st.selectbox("Department", df['department'].unique())
@@ -21,24 +23,36 @@ KPIs_met = st.number_input("Number of KPIs Met", min_value=0, max_value=1)
 awards_won = st.number_input("Number of Awards Won", min_value=0, max_value=1)
 avg_training_score = st.number_input("Average Training Score") 
 
-inputs = {
-    'employee_id': employee_id,
-    'department': department,
-    'region': region,
-    'education': education,
-    'gender': gender,
-    'recruitment_channel': recruitment_channel,
-    'no_of_trainings': no_of_trainings, 
-    'age': age,
-    'previous_year_rating': previous_year_rating,
-    'length_of_service': length_of_service,
-    'KPIs_met >80%': KPIs_met,
-    'awards_won?': awards_won,
-    'avg_training_score': avg_training_score
-}
 
 if st.button("Predict Promotion"):
-    model = joblib.load("Models/hr_analytics_thrsh77_model.pkl")
-    input_df = pd.DataFrame([inputs])
-    prediction = model.predict(input_df)
-    st.write(prediction)
+    payload = {
+        'employee_id': int(employee_id),
+        'department': department,
+        'region': region,
+        'education': education,
+        'gender': gender,
+        'recruitment_channel': recruitment_channel,
+        'no_of_trainings': int(no_of_trainings), 
+        'age': int(age),
+        'previous_year_rating': float(previous_year_rating),
+        'length_of_service': int(length_of_service),
+        'KPIs_met_80': int(KPIs_met),
+        'awards_won': int(awards_won),
+        'avg_training_score': avg_training_score
+    }
+
+    try:
+        response = requests.post(API_URL, json=payload)
+        if response.status_code == 200:
+            result = response.json()
+            st.success(f"Result: {result['promotion_prediction_class']}")
+            st.info(f"Promotion Probability: {result['probability']:.2f}")
+            if result['promotion_prediction_class'] == 'Promoted':
+                st.balloons()
+            else:
+                st.snow()
+        else:
+            st.error("Error in prediction API")
+
+    except Exception as e:
+        st.error(f"An error occurred: {e}")

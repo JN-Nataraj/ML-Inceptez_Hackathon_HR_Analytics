@@ -1,0 +1,14 @@
+FROM python:3.10.19-slim
+
+WORKDIR /app
+
+COPY . .
+
+RUN pip install --no-cache-dir -r Requirements_Streamlit.txt
+
+ENV API_URL=https://ml-inceptez-hackathon-hr-analytics-65827796111.europe-west1.run.app/predict
+
+# EXPOSE 8080
+
+# Streamlit command
+CMD ["sh", "-c", "streamlit run src/streamlit/app/main.py --server.port $PORT --server.address 0.0.0.0"]

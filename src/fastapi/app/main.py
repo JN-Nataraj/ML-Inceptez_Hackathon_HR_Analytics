@@ -9,7 +9,7 @@ import joblib as jbl
 from pydantic import BaseModel
 import pandas as pd
 from typing import Optional
-from src.fastapi.app.featureengineering import FeatureEngineering
+from app.featureengineering import FeatureEngineering
 
 
 app = FastAPI()

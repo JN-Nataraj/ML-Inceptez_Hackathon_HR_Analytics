@@ -14,7 +14,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from src.fastapi.app.featureengineering import FeatureEngineering
+from app.featureengineering import FeatureEngineering
 
 import joblib as jbl
 

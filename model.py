@@ -14,7 +14,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 from sklearn.base import BaseEstimator, TransformerMixin
 
-from app.featureengineering import FeatureEngineering
+from src.featureengineering import FeatureEngineering
 
 import joblib as jbl
 

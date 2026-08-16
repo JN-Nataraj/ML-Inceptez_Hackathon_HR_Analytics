@@ -7,7 +7,7 @@ st.title("HR Promotion Predictor")
 
 df = pd.read_csv("Data/train.csv")
 
-API_URL = os.getenv("API_URL", "http://localhost:8080/predict")
+API_URL = os.getenv("API_URL", "https://ml-inceptez-hackathon-hr-analytics.onrender.com/predict")
 
 employee_id = st.number_input("Employee ID")
 department = st.selectbox("Department", df['department'].unique())
